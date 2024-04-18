@@ -1,0 +1,72 @@
+package com.jpa.test;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import com.jpa.test.dao.UserRepository;
+import com.jpa.test.entities.User;
+
+@SpringBootApplication
+public class FirstJpaApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(FirstJpaApplication.class, args);
+		UserRepository userRepository = context.getBean(UserRepository.class);
+		
+//		User user = new User();
+//		user.setName("Arun");
+//		user.setCity("madhya Pradesh");
+//		user.setStatus("I am python Programmer");
+//		User user2 = userRepository.save(user);
+		
+//		System.out.println(user2);
+		
+		User user = new User();
+		user.setName("vir");
+		user.setCity("Ahmedabad");
+		user.setStatus("Android Developer");
+		
+		User user1 = new User();
+		user1.setName("bhaumik");
+		user1.setCity("bhavnagar");
+		user1.setStatus("ios Developer");
+		
+//		way1 insert data
+//		ArrayList<User> ar = new ArrayList<User>();
+//		ar.add(user);
+//		ar.add(user1);
+//		
+//		Iterable<User> saveAll = userRepository.saveAll(ar);
+//		saveAll.forEach(u ->{
+//			System.out.println(u);
+//		});
+		
+//		way2
+//		List<User> list = List.of(user,user1);
+//		Iterable<User> saveAll = userRepository.saveAll(list);
+//		saveAll.forEach(u ->{
+//			System.out.println(u);
+//		});
+//		System.out.println("Done");
+		
+		// for update
+//		Optional<User> optional = userRepository.findById(2);
+//		User user2 = optional.get();
+//		
+//		user2.setName("java");
+//		
+//		User result = userRepository.save(user2);
+//		
+//		System.out.println(result);
+		
+		Iterable<User> iterable = userRepository.findAll();
+		iterable.forEach(i -> {System.out.println(i);});
+	}
+
+}
