@@ -1,14 +1,9 @@
 package com.jpa.test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
-
 import com.jpa.test.dao.UserRepository;
 import com.jpa.test.entities.User;
 
@@ -91,11 +86,17 @@ public class FirstJpaApplication {
 //		List<User> byCityEndingWith = userRepository.findByCityEndingWith("r");
 //		byCityEndingWith.forEach(a -> System.out.println(a));
 		
-		List<User> allUser = userRepository.getAllUsers();
-		allUser.forEach(a -> System.out.println(a));
+//		List<User> allUser = userRepository.getAllUsers();
+//		allUser.forEach(a -> System.out.println(a));
 		
 //		List<User> byNameContaining = userRepository.findByNameContaining("u");
 //		byNameContaining.forEach(a -> System.out.println(a));
+		
+//		List<User> userByName = userRepository.getUserByName("viru");
+//		userByName.forEach(p -> System.out.println(p));
+		
+		List<User> userByNameAndCity = userRepository.getUserByNameAndCity("java", "bhavnagar");
+		userByNameAndCity.forEach(c -> System.out.println(c));
 	}
 
 }
