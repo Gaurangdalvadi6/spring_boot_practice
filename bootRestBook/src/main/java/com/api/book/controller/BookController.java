@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,7 +51,7 @@ public class BookController {
 		if (book == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
-		return ResponseEntity.of(Optional.of(book));
+		return ResponseEntity.status(HttpStatus.CREATED).body(book);
 	}
 	
 	@PostMapping("/books")
@@ -60,7 +59,7 @@ public class BookController {
 		Book book2 =null;
 		try {
 			book2 =bookServices.addBook(book);
-			System.out.println(book2);
+//			System.out.println(book2);
 			return ResponseEntity.status(HttpStatus.CREATED).build();
 		} catch (Exception e) {
 			e.printStackTrace();
