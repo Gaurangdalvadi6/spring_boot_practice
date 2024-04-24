@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<h1>About learning thymleaf</h1>
+	<h1>We are learn spring boot</h1>
+	<h2>Name of Owner is : <span th:text="${name}"></span></h2>
+	<h2 th:text="${currentDate}"></h2>
+	<h1 th:text="${ #strings.toUpperCase(name)}"></h1>
+	<p>length of the name is <span th:text="${ #strings.length(name)}"></span></p>
+</body>
+</html>
