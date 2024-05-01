@@ -32,7 +32,7 @@ public class UserController {
 	
 	
 	// single user get
-	@GetMapping("{userId}")
+	@GetMapping("/{userId}")
 	public ResponseEntity<User> getSingleUser(@PathVariable int userId){
 		User user = userService.getUser(userId);
 		return ResponseEntity.ok(user);
