@@ -17,6 +17,7 @@ import com.gg.user.service.entity.Hotel;
 import com.gg.user.service.entity.Rating;
 import com.gg.user.service.entity.User;
 import com.gg.user.service.exception.ResourceNotFoundException;
+import com.gg.user.service.external.service.HotelService;
 import com.gg.user.service.repository.UserRepository;
 import com.gg.user.service.services.UserService;
 
@@ -27,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private HotelService hotelService;
 
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -55,17 +59,21 @@ public class UserServiceImpl implements UserService {
 //		ArrayList<Rating> forObject = restTemplate.getForObject("http://192.168.10.186:8083/rating/users/20", ArrayList.class);
 		Rating[] ratingsOfUser = restTemplate
 				.getForObject("http://RATINGSERVICE/rating/users/" + user.getUserId(), Rating[].class);
-		logger.info("{} ", ratingsOfUser);
+		//logger.info("{} ", ratingsOfUser);
 
 		List<Rating> ratings = Arrays.stream(ratingsOfUser).toList();
 		List<Rating> ratingList = ratings.stream().map(rating -> {
 			// api call to hotel service to get the hotel
 			// localhost:8082/hotels/9b98690a-7fc9-46c1-ae5d-76c09cab9f7d
-			ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTELSERVICES/hotels/" + rating.getHotelId(),
-					Hotel.class);
-			Hotel hotel = forEntity.getBody();
+			// calling using restTemplate
+//			ResponseEntity<Hotel> forEntity = restTemplate.getForEntity("http://HOTELSERVICES/hotels/" + rating.getHotelId(),
+//					Hotel.class);
+//			Hotel hotel = forEntity.getBody();
+//			logger.info("response status code : {} ", forEntity.getStatusCode());
 			
-			logger.info("response status code : {} ", forEntity.getStatusCode());
+			// calling using FeignClient
+			Hotel hotel = hotelService.getHotel(rating.getHotelId());
+			
 
 			// set the hotel to rating
 			rating.setHotel(hotel);
