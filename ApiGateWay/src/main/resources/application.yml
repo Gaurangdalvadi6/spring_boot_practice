@@ -1,28 +1,32 @@
 server:
-  port: 8085
+  port: 8084
+
   
 spring:
   application:
     name: APIGATEWAY
+    
   cloud:
     gateway:
-      routes:
-      - id: USERSERVICE
-        uri: lb://USERSERVICE
-        predicates:
-        - Path=/users/**
-        
-      - id: HOTELSERVICES
-        uri: lb://HOTELSERVICES
-        predicates:
-        - Path=/hotels/**
-        
-      - id: RATINGSERVICE
-        uri: lb://RATINGSERVICE
-        predicates:
-        - Path=/rating/** 
+      mvc:
+        routes:
+        - id: USERSERVICE
+          uri: lb://USERSERVICE
+          predicates:
+          - Path=/users/**
           
-  
+        - id: HOTELSERVICES
+          uri: lb://HOTELSERVICES
+          predicates:
+          - Path=/hotels/**,/staffs/**
+          # Path=/** use for all don't need to mension one by one like Path=/hotels/**,/staffs/**
+          
+        - id: RATINGSERVICE
+          uri: lb://RATINGSERVICE
+          predicates:
+          - Path=/rating/**          
+
+    
 eureka:
   instance:
     prefer-ip-address: true
@@ -30,4 +34,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8084/eureka
+      defaultZone: http://localhost:9000/eureka
