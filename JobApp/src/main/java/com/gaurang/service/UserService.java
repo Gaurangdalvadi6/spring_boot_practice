@@ -9,15 +9,16 @@ import com.gaurang.repo.UserRepo;
 
 @Service
 public class UserService {
-	
-@Autowired
+
+	@Autowired
 	private UserRepo repo;
-private BCryptPasswordEncoder encoder=new BCryptPasswordEncoder(12);
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
 	public User saveUser(User user) {
+
 		user.setPassword(encoder.encode(user.getPassword()));
 		System.out.println(user.getPassword());
-	return repo.save(user) ;
-		
+		return repo.save(user);
+
 	}
 }
