@@ -35,6 +35,7 @@ public class JournalEntryService {
         journalEntry1.setContent(journalEntry.getContent());
         journalEntry1.setTitle(journalEntry.getTitle());
         journalEntry1.setDate(LocalDateTime.now());
+        journalEntry1.setUser(journalEntry.getUser());
 
         return journalEntryRepository.save(journalEntry1);
     }
